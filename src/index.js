@@ -7,14 +7,19 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import AxiosHandle from './tools/request';
 import * as serviceWorker from './serviceWorker';
 
+// if(window.location.protocol === 'https:' && navigator.serviceWorker){
+// 	window.addEventListener('load', ()=>{
+// 		navigator.serviceWorker.register(serviceWorker);
+// 	});
+// }
+
+serviceWorker.unregister();
 function renderWithHotReload(Element){
     ReactDom.render(
         <AppContainer>
-          <Provider>
-            <Router>
-              <Element />
-            </Router>
-          </Provider>
+			<Router>
+				<Element />
+			</Router>
         </AppContainer>,
         document.getElementById('root')
       );
@@ -25,10 +30,10 @@ renderWithHotReload(App);
 
 // 热更新
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
-    renderWithHotReload(NextApp);
-  });
+	module.hot.accept('./App', () => {
+			const NextApp = require('./App').default;
+			renderWithHotReload(NextApp);
+	});
 }
 
 AxiosHandle.axiosConfigInit();
