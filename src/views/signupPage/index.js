@@ -17,6 +17,8 @@ class Signup extends Component {
           }
         });
     }
+
+    userInfoForm(){}
     // 组件渲染 
     render(){
         const {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} 
@@ -25,15 +27,14 @@ class Signup extends Component {
           const passwordError = isFieldTouched('password') && getFieldError('password');
           const emailError = isFieldTouched('email') && getFieldError('email');
         return (
-            <div class="screen un">
+            <div className="screen un">
                 <h4 className='text-signup'>SIGNUP</h4>
                 <div className="signup-form un" >
                     <Form layout="inline" onSubmit={this.handleSubmit}>
                         <Form.Item validateStatus = { usernameError ? 'error' : '' } help = { usernameError || '' }>
                             { getFieldDecorator('username', {
                                 rules: [{ required: true, message: '请输入用户姓名!' }],
-                            })
-                            (
+                            })(
                                 <Input size="large" className="form-control tr" placeholder="用户名"/>
                             )}
                         </Form.Item>
@@ -42,18 +43,16 @@ class Signup extends Component {
                             { getFieldDecorator('email', {
                                 rules: [{ type: 'email', message: '请输入正确的邮箱!'}, 
                                 {required: true, message: '请输入邮箱！'}],
-                            })
-                            (
-                                <Input size="large" className="form-control tr" placeholder="邮箱"> </Input>
+                            })(
+                                <Input size="large" className="form-control tr" placeholder="邮箱"/>
                             )
                             }
                         </Form.Item>
                         <Form.Item validateStatus = { passwordError ? 'error' : ''} help = { passwordError || ''} >
                             { getFieldDecorator('password', {
                                 rules: [{ required: true, message: 'Please input your Password!' }],
-                            })
-                            (
-                                <Input size="large" className="form-control tr" placeholder="密码" type="password"></Input>
+                            })(
+                                <Input size="large" className="form-control tr" placeholder="密码" type="password"/>
                             )}
                         </Form.Item>
                         <Form.Item>
