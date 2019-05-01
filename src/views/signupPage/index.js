@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import './style.css';
+import HomeModel from '../../components/HomeModelPage';
 class Signup extends Component {
+    constructor(props){
+        super(props);
+        this.title ='SIGNUP';
+    }
 
     // button 处理错误类型
     hasErrors(fieldsError) {
@@ -12,9 +17,10 @@ class Signup extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
+          if (err) {
+            message.error(values);
           }
+          console.log(values);
         });
     }
 
@@ -23,12 +29,15 @@ class Signup extends Component {
     render(){
         const {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} 
             = this.props.form;
-          const usernameError = isFieldTouched('username') && getFieldError('username');
-          const passwordError = isFieldTouched('password') && getFieldError('password');
-          const emailError = isFieldTouched('email') && getFieldError('email');
+        const usernameError = isFieldTouched('username') && getFieldError('username');
+        const passwordError = isFieldTouched('password') && getFieldError('password');
+        const emailError = isFieldTouched('email') && getFieldError('email');
+            
         return (
-            <div className="screen un">
-                <h4 className='text-signup'>SIGNUP</h4>
+            <HomeModel 
+                title={this.title}
+                text = 'F O R &nbsp;A &nbsp;N E W  &nbsp;A C C O U N T'
+            >
                 <div className="signup-form un" >
                     <Form layout="inline" onSubmit={this.handleSubmit}>
                         <Form.Item validateStatus = { usernameError ? 'error' : '' } help = { usernameError || '' }>
@@ -50,10 +59,11 @@ class Signup extends Component {
                         </Form.Item>
                         <Form.Item validateStatus = { passwordError ? 'error' : ''} help = { passwordError || ''} >
                             { getFieldDecorator('password', {
-                                rules: [{ required: true, message: 'Please input your Password!' }],
+                                rules: [{ required: true, min:6, max:16, message: '请输入6-16英文数字组合密码!' }],
                             })(
-                                <Input size="large" className="form-control tr" placeholder="密码" type="password"/>
-                            )}
+                              (<Input size="large" className="form-control password tr" placeholder="密码" type="password"/>)
+                            )
+                            }
                         </Form.Item>
                         <Form.Item>
                             <Button className="form-control button-control tr" type="primary" htmlType="submit"  disabled = {this.hasErrors(getFieldsError())}>注 册</Button>
@@ -61,7 +71,11 @@ class Signup extends Component {
             
                     </Form>
                 </div>
-            </div>
+                <div className="options un">
+                    <a className="float-left">帮 助</a>
+                    <a className="float-right">登 入</a>
+                </div>
+            </HomeModel>
         )
     }
 };

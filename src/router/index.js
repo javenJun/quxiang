@@ -8,6 +8,7 @@ export default function Router(){
             <div>
                 <Switch>
                     <Route path = "/signup" exact component = {loadable(() => import('../views/SignupPage'))} ></Route>
+                    <Route path = "/signin" exact component = {loadable(() => import('../views/SigninPage'))} ></Route>
                 </Switch>
             </div>
         </BrowserRouter>

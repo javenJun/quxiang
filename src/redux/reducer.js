@@ -3,6 +3,6 @@ import { initAppReducer } from './reducer/initAppReducer';
 import { inviteReducer } from './reducer/inviteReducer';
 
 export default combineReducers({
-    initAppReducer:initAppReducer,
-    inviteReducer:inviteReducer
+    initAppReducer: initAppReducer,
+    inviteReducer: inviteReducer
 })

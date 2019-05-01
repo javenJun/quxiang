@@ -1,0 +1,35 @@
+.screen{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    width: 375px;
+    height: 667px;
+    background-image: linear-gradient(135deg, #29DAC6 0%, #329DE3 100%);
+    border-radius: 10px;
+    box-shadow: 0 0 24px 0 
+    rgba(0,0,0,0.1);
+}
+
+.screen #logo{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 95px;
+}
+
+.text-signup{
+    position: absolute;
+    left: 50%;
+    top: 31%;
+    color: #FFFFFF;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.screen h4{
+    font-size: 60px;
+}
