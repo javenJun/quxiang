@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Button, message } from 'antd'
 import './style.css';
 import HomeModel from '../../components/HomeModelPage';
+import { Link } from 'react-router-dom';
 class Signin extends Component {
     constructor(props){
         super(props);
@@ -31,13 +32,15 @@ class Signin extends Component {
         const emailError = isFieldTouched('email') && getFieldError('email');
         const passwordError = isFieldTouched('password') && getFieldError('password');
         return(
-        <HomeModel 
-            title= {this.title}
-            text= {this.text   }
-        >
-           <div className="signup-form un" >
+        <div className="screen un">
+            <HomeModel 
+                title= {this.title}
+                text= {this.text}
+            >
+            </HomeModel>
+            <div className="signin-form un" >
                 <Form layout="inline" onSubmit={this.handleSubmit}>
-                    <Form.Item validateStatus = { emailError ? 'error' : '' } help = { emailError || '' }>
+                    <Form.Item className='form-item' validateStatus = { emailError ? 'error' : '' } help = { emailError || '' } >
                         { getFieldDecorator('email', {
                             rules: [{ type: 'email', message: '请输入正确的邮箱!'}, 
                             {required: true, message: '请输入邮箱！'}],
@@ -46,20 +49,29 @@ class Signin extends Component {
                         )
                         }
                     </Form.Item>
-                    <Form.Item validateStatus = { passwordError ? 'error' : ''} help = { passwordError || ''} >
+                    <Form.Item  className='form-item' validateStatus = { passwordError ? 'error' : ''} help = { passwordError || ''} >
                         { getFieldDecorator('password', {
-                            rules: [{ required: true, min:6, max:16, message: '请输入6-16英文数字组合密码!' }],
+                            rules: [{ required: true, message: '请输入密码!' }],
                         })(
                             (<Input size="large" className="form-control password tr" placeholder="密码" type="password"/>)
                         )
                         }
                     </Form.Item>
                     <Form.Item>
-                        <Button className="form-control button-control tr" type="primary" htmlType="submit"  disabled = {this.hasErrors(getFieldsError())}>注 册</Button>
+                        <Button className="form-control button-control tr" type="primary" htmlType="submit"  disabled = {this.hasErrors(getFieldsError())}>登 入</Button>
                     </Form.Item>
                 </Form>
-           </div>
-        </HomeModel>
+            </div>
+            <div className="options un">
+                <Link className='float-left' to='/signup'>
+                    <span >忘记密码</span>
+                </Link>
+                <Link className='float-right' to='/signup'>
+                    <span >用户注册</span>
+                </Link>
+            </div>
+        </div>
+      
         )
         
     }

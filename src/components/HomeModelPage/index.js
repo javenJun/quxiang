@@ -15,11 +15,9 @@ HomeModel.defaultProps = {
 export default function HomeModel(props){
     const { title , text } = props;
     return (
-        <div className="screen un">
-            <div className="text-signup">
-                <h4 className=''>{title}</h4>
-                <span className ='text-span'>{text}</span>
-            </div>
+        <div className="text-signup">
+            <h4 className=''>{title}</h4>
+            <span className ='text-span'>{text}</span>
         </div>
     )
 }

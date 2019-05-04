@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Button, message } from 'antd'
 import './style.css';
 import HomeModel from '../../components/HomeModelPage';
+import { Link } from 'react-router-dom';
 class Signup extends Component {
     constructor(props){
         super(props);
@@ -13,6 +14,11 @@ class Signup extends Component {
         return Object.keys(fieldsError).some(field => fieldsError[field]);
     }
 
+    passwordHasError(rule, value, callback){
+        if(value.length<=0) return callback('请输入密码');
+        if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,18}$/.test(value)) return callback('必须为6-16位的字母数字组合密码');
+        callback();
+    }
     // 数据提交
     handleSubmit = (e) => {
         e.preventDefault();
@@ -20,10 +26,8 @@ class Signup extends Component {
           if (err) {
             message.error(values);
           }
-          console.log(values);
         });
     }
-
     userInfoForm(){}
     // 组件渲染 
     render(){
@@ -34,13 +38,15 @@ class Signup extends Component {
         const emailError = isFieldTouched('email') && getFieldError('email');
             
         return (
-            <HomeModel 
-                title={this.title}
-                text = 'F O R &nbsp;A &nbsp;N E W  &nbsp;A C C O U N T'
-            >
+            <div className="screen un">
+                <HomeModel 
+                    title={this.title}
+                    text = 'F O R &nbsp;A &nbsp;N E W  &nbsp;A C C O U N T'
+                >
+                </HomeModel>
                 <div className="signup-form un" >
                     <Form layout="inline" onSubmit={this.handleSubmit}>
-                        <Form.Item validateStatus = { usernameError ? 'error' : '' } help = { usernameError || '' }>
+                        <Form.Item className='form-item' validateStatus = { usernameError ? 'error' : '' } help = { usernameError || '' }>
                             { getFieldDecorator('username', {
                                 rules: [{ required: true, message: '请输入用户姓名!' }],
                             })(
@@ -48,7 +54,7 @@ class Signup extends Component {
                             )}
                         </Form.Item>
 
-                        <Form.Item validateStatus = { emailError ? 'error' : '' } help = { emailError || '' }>
+                        <Form.Item className='form-item' validateStatus = { emailError ? 'error' : '' } help = { emailError || '' }>
                             { getFieldDecorator('email', {
                                 rules: [{ type: 'email', message: '请输入正确的邮箱!'}, 
                                 {required: true, message: '请输入邮箱！'}],
@@ -57,25 +63,28 @@ class Signup extends Component {
                             )
                             }
                         </Form.Item>
-                        <Form.Item validateStatus = { passwordError ? 'error' : ''} help = { passwordError || ''} >
+                        <Form.Item className='form-item' validateStatus = { passwordError ? 'error' : ''} help = { passwordError || ''} >
                             { getFieldDecorator('password', {
-                                rules: [{ required: true, min:6, max:16, message: '请输入6-16英文数字组合密码!' }],
+                                rules: [{validator: this.passwordHasError}],
                             })(
-                              (<Input size="large" className="form-control password tr" placeholder="密码" type="password"/>)
+                                (<Input size="large" className="form-control password tr" placeholder="密码" type="password"/>)
                             )
                             }
                         </Form.Item>
                         <Form.Item>
                             <Button className="form-control button-control tr" type="primary" htmlType="submit"  disabled = {this.hasErrors(getFieldsError())}>注 册</Button>
                         </Form.Item>
-            
                     </Form>
                 </div>
-                <div className="options un">
-                    <a className="float-left">帮 助</a>
-                    <a className="float-right">登 入</a>
+                <div className="option un">
+                    <Link className="float-left" to='/help'>
+                       <span>帮 助</span>
+                    </Link>
+                    <Link className="float-right" to='/signin'>
+                        <span >已有账户</span>
+                    </Link>
                 </div>
-            </HomeModel>
+            </div>
         )
     }
 };
